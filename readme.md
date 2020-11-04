@@ -20,7 +20,7 @@ For example:
     'model_attribute' => 'medium_url'
 ]
 ```
-Be sure to create new migration to image table with new column which mentioned in model_attribute option.
+Be sure to create new migration to image table with a new column which mentioned in model_attribute option.
  
 ## Installation
 
@@ -41,7 +41,16 @@ $ php artisan migrate
 
 ## Usage
 
-
+You can use package facade to upload image like this
+```bash
+use victorycto\ImageStore\Facades\ImageStore;
+...
+$uploadedImageModel = ImageStore::upload(\request()->file('image'));
+```
+The service expects an image file with an instance of [UploadedFile](https://laravel.com/api/6.x/Illuminate/Http/UploadedFile.html) ,  
+then resizes an image on sizes which was described in configuration file imagestore.php,  
+upload to cloud store and uses image model to save urls.  
+As the result the method **ImageStore::upload()** returns **victorycto\ImageStore\Models\Image** model.
 ## Testing
 
 ``` bash
